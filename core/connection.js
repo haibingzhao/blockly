@@ -563,7 +563,12 @@ Blockly.Connection.prototype.checkType_ = function(otherConnection) {
   }
   // Find any intersection in the check lists.
   for (var i = 0; i < this.check_.length; i++) {
-    if (otherConnection.check_.indexOf(this.check_[i]) != -1) {
+    var check = this.check_[i];
+    // if it's a function, return string
+    if(goog.isFunction(check)){
+      check = check();
+    }
+    if (otherConnection.check_.indexOf(check) != -1) {
       return true;
     }
   }

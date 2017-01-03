@@ -41,6 +41,7 @@ goog.require('Blockly.FieldColour');
 goog.require('Blockly.FieldDropdown');
 goog.require('Blockly.FieldImage');
 goog.require('Blockly.FieldTextInput');
+goog.require('Blockly.FieldTextArea');
 goog.require('Blockly.FieldNumber');
 goog.require('Blockly.FieldVariable');
 goog.require('Blockly.Generator');
@@ -239,9 +240,22 @@ Blockly.onKeyDown_ = function(e) {
     }
     if (e.keyCode == 86) {
       // 'v' for paste.
-      if (Blockly.clipboardXml_) {
+      var clipboardXml_ = null;
+      // get from local storage
+      var textXml = goog.global.localStorage['blockly_copy'];
+      if(textXml){
+        clipboardXml_ =  Blockly.Xml.textToDom('<xml>'+textXml+'</xml>');
+        clipboardXml_ = clipboardXml_.childNodes[0];
+      }else{
+        clipboardXml_ = Blockly.clipboardXml_;
+      }
+      if (clipboardXml_) {
         Blockly.Events.setGroup(true);
-        Blockly.clipboardSource_.paste(Blockly.clipboardXml_);
+        if(Blockly.clipboardSource_){
+          Blockly.clipboardSource_.paste(clipboardXml_);
+        }else{
+          Blockly.getMainWorkspace().paste(clipboardXml_);
+        }
         Blockly.Events.setGroup(false);
       }
     } else if (e.keyCode == 90) {
@@ -287,6 +301,8 @@ Blockly.copy_ = function(block) {
   var xy = block.getRelativeToSurfaceXY();
   xmlBlock.setAttribute('x', block.RTL ? -xy.x : xy.x);
   xmlBlock.setAttribute('y', xy.y);
+  // store in local storage
+  goog.global.localStorage['blockly_copy'] = Blockly.Xml.domToText(xmlBlock);
   Blockly.clipboardXml_ = xmlBlock;
   Blockly.clipboardSource_ = block.workspace;
 };

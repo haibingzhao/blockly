@@ -1,0 +1,459 @@
+<xml id="toolbox" style="display: none">
+    <category name="应用分组" colour="190">
+      <block type="rpc_definition"></block>
+      <block type="rpc_business"></block>
+      <block type="rpc_function">
+        <statement name="STACK">
+          <block type="result_return_empty" >
+            <field name="emptyType">null</field>
+          </block>
+        </statement>
+      </block>
+    </category>
+    <category name="逻辑处理" colour="210">
+      <block type="logic_if">
+        <value name="IF0">
+          <block type="logic_compare"></block>
+        </value>
+      </block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_if_then_else">
+        <value name="if">
+          <block type="logic_compare"></block>
+        </value>
+      </block>
+    </category>
+    <category name="参数处理" colour="345">
+      <category name="基本参数" colour="345">
+        <block type="param_input">
+          <value name="param">
+            <block type="keys_array"></block>
+          </value>
+        </block>
+        <block type="param_long"></block>
+        <block type="param_string"></block>
+        <block type="param_integer"></block>
+        <block type="param_boolean"></block>
+        <block type="param_double"></block>
+        <block type="param_device"></block>
+        <block type="param_date"></block>
+        <block type="param_statdate"></block>
+        <block type="param_indexcode"></block>
+        <block type="param_indexcode_extra"></block>
+        <block type="param_verify"></block>
+      </category>
+      <category name="数组参数" colour="345">
+        <block type="param_longs"></block>
+        <block type="param_strings"></block>
+        <block type="param_integers"></block>
+        <block type="param_devices"></block>
+      </category>
+    </category>
+    <category name="时间处理" colour="285">
+      <category name="时间周期" colour="285">
+        <block type="statdate_variable"></block>
+        <block type="statdate_pre_period"></block>
+        <block type="statdate_trend_pre_period"></block>
+        <block type="statdate_trend_convert"></block>
+        <block type="statdate_from_period"></block>
+        <block type="statdate_start_from_period"></block>
+        <block type="statdates_from_period"></block>
+        <block type="statdate_start_of_period_list"></block>
+        <block type="statdates_sync_cycle_from_period"></block>
+      </category>
+      <category name="时间函数" colour="285">
+        <block type="statdate_start_of_day"></block>
+        <block type="statdate_end_of_day"></block>
+        <block type="statdate_add_days"></block>
+        <block type="statdate_get_hour_string"></block>
+        <block type="statdate_between_days"></block>
+        <block type="statdate_2_now_hour_string_list"></block>
+        <block type="statdate_2_now_hour_date_list"></block>
+        <block type="statdate_2_day_hour_list"></block>
+        <block type="statdate_2_day_hour_string_list"></block>
+        <block type="statdate_format"></block>
+      </category>
+    </category>
+    <category name="数据查询" colour="225">
+      <category name="数据获取" colour="225">
+        <block type="datasource_cput_indx">
+          <value name="sqlKeyValue">
+            <block type="keys_string"></block>
+          </value>
+          <value name="params">
+            <block type="datasource_condition_map"></block>
+          </value>
+        </block>
+        <block type="datasource_fill">
+          <value name="sqlKeyValue">
+            <block type="keys_string"></block>
+          </value>
+          <value name="params">
+            <block type="datasource_condition_map"></block>
+          </value>
+        </block>
+        <block type="datasource_cput_crc_indx">
+          <value name="sqlKeyValue">
+            <block type="keys_string"></block>
+          </value>
+          <value name="params">
+            <block type="datasource_condition_map"></block>
+          </value>
+        </block>
+        <block type="datasource_cput_ratio">
+          <value name="sqlKeyValue">
+            <block type="keys_string"></block>
+          </value>
+          <value name="params">
+            <block type="datasource_condition_map"></block>
+          </value>
+        </block>
+        <block type="datesource_merge_by_key">
+          <value name="sqlKeyValue">
+            <block type="keys_string"></block>
+          </value>
+          <value name="interfaceKeyValue">
+            <block type="keys_string"></block>
+          </value>
+          <value name="params">
+            <block type="datasource_condition_map"></block>
+          </value>
+        </block>
+        <block type="datasource_update">
+          <value name="sqlKeyValue">
+            <block type="keys_string"></block>
+          </value>
+          <value name="params">
+            <block type="datasource_condition_map"></block>
+          </value>
+        </block>
+        <block type="datasource_select">
+          <value name="sqlKeyValue">
+            <block type="keys_string"></block>
+          </value>
+          <value name="params">
+            <block type="datasource_condition_map"></block>
+          </value>
+        </block>
+      </category>
+      <category name="数据处理" colour="225">
+        <block type="datasource_data_filter_var">
+          <value name="RIGHT0">
+            <block type="keys_string"></block>
+          </value>
+        </block>
+        <block type="datasource_data_filter_text">
+          <value name="RIGHT0">
+            <block type="keys_string"></block>
+          </value>
+        </block>
+        <block type="datasource_data_group_by">
+          <value name="FIELD0">
+            <block type="keys_string"></block>
+          </value>
+          <value name="FIELD1">
+            <block type="keys_string"></block>
+          </value>
+          <value name="groupBy">
+            <block type="keys_string"></block>
+          </value>
+        </block>
+        <block type="datasource_case_when">
+          <value name="whenField">
+            <block type="keys_string"></block>
+          </value>
+          <value name="thenField">
+            <block type="keys_string"></block>
+          </value>
+        </block>
+        <block type="datasource_value_replace">
+          <value name="fieldName">
+            <block type="keys_string"></block>
+          </value>
+          <value name="AFTER0">
+            <block type="keys_string"></block>
+          </value>
+          <value name="AFTER1">
+            <block type="keys_string"></block>
+          </value>
+        </block>
+      </category>
+    </category>
+    <category name="常用键集合" colour="180">
+      <category name="类型集合" colour="180">
+        <block type="keys_reference"></block>
+        <block type="keys_long"></block>
+        <block type="keys_string"></block>
+        <block type="keys_integer"></block>
+        <block type="keys_boolean"></block>
+        <block type="keys_double"></block>
+        <block type="keys_strings"></block>
+        <block type="keys_null"></block>
+        <block type="keys_current_date"></block>
+        <block type="keys_array"></block>
+        <block type="keys_types"></block>
+        <block type="keys_array_2_list"></block>
+      </category>
+      <category name="算术运算" colour="180">
+        <block type="keys_arithmetic"></block>
+      </category>
+      <category name="变量创建" colour="180">
+        <block type="keys_create_variable"></block>
+        <block type="keys_assign_variable"></block>
+        <block type="keys_variable_param"></block>
+      </category>
+      <category name="用户变量" colour="180">
+        <block type="keys_login_user_id"></block>
+        <block type="keys_runas_user_id"></block>
+        <block type="keys_runas_shop_id"></block>
+        <block type="keys_main_user_id"></block>
+        <block type="keys_is_b2c_shop"></block>
+        <block type="keys_bc_seller"></block>
+      </category>
+      <category name="字符处理" colour="180">
+        <block type="keys_string_concat">
+          <value name="strings">
+            <block type="keys_array"></block>
+          </value>
+        </block>
+      </category>
+      <category name="主营类目" colour="180">
+        <block type="keys_main1_cateid">
+          <value name="statDate">
+            <block type="keys_reference"></block>
+          </value>
+        </block>
+        <block type="keys_main2_cateid">
+          <value name="statDate">
+            <block type="keys_reference"></block>
+          </value>
+        </block>
+      </category>
+      <category name="其它" colour="180">
+        <block type="keys_page_start_index"></block>
+        <block type="keys_throw_exception"></block>
+      </category>
+    </category>
+    <category name="指标及计算" colour="125">
+      <category name="指标获取" colour="125">
+        <block type="index_get">
+          <value name="interfaceName">
+            <block type="keys_string"></block>
+          </value>
+        </block>
+        <block type="index_filtered_by_group">
+          <value name="groupName">
+            <block type="keys_string"></block>
+          </value>
+        </block>
+        <block type="index_is_in_group"></block>
+        <block type="index_col_get"></block>
+        <block type="index_col_get_by_ref">
+          <value name="indexAlias">
+            <block type="keys_reference"></block>
+          </value>
+        </block>
+        <block type="index_en_get">
+          <value name="indexAlias">
+            <block type="keys_string"></block>
+          </value>
+        </block>
+      </category>
+      <category name="指标合并" colour="125">
+        <block type="index_merge_rival"></block>
+        <block type="index_merge_data"></block>
+        <block type="index_merge_data_2_my"></block>
+        <block type="index_add_merge">
+          <value name="excluded">
+            <block type="keys_null"></block>
+          </value>
+        </block>
+      </category>
+      <category name="指标计算" colour="125">
+        <block type="index_cput"></block>
+        <block type="index_cput_self_ratio"></block>
+        <block type="index_cput_ratio"></block>
+        <block type="index_cput_crc_and_cqc"></block>
+        <block type="index_fill"></block>
+        <block type="index_fill_accumulate">
+          <value name="notAccumulates">
+            <block type="keys_array"></block>
+          </value>
+        </block>
+      </category>
+    </category>
+    <category name="宝贝" colour="20">
+      <block type="item_model"></block>
+      <block type="item_search">
+        <value name="itemModel">
+          <block type="item_model"></block>
+        </value>
+      </block>
+      <block type="item_get">
+        <value name="itemModel">
+          <block type="item_model"></block>
+        </value>
+      </block>
+      <block type="item_merge">
+        <value name="itemModel">
+          <block type="item_model"></block>
+        </value>
+      </block>
+    </category>
+    <category name="店铺" colour="200">
+      <block type="shop_model"></block>
+      <block type="shop_search">
+        <value name="shopModel">
+          <block type="shop_model"></block>
+        </value>
+      </block>
+      <block type="shop_get">
+        <value name="shopModel">
+          <block type="shop_model"></block>
+        </value>
+      </block>
+      <block type="shop_merge">
+        <value name="shopModel">
+          <block type="shop_model"></block>
+        </value>
+      </block>
+      <block type="shop_map_shopid_by_userid"></block>
+      <block type="shop_get_shopid_by_userid"></block>
+    </category>
+    <category name="结果处理" colour="315">
+      <block type="result_to_map_list"></block>
+      <block type="result_trend_fill_null">
+        <value name="size">
+          <block type="keys_integer"></block>
+        </value>
+      </block>
+      <block type="result_return"></block>
+      <block type="result_return_empty"></block>
+      <block type="result_excel_download">
+        <statement name="sheets">
+          <block type="result_sheet_content" >
+            <field name="queryResult">queryResult</field>
+            <value name="sheet">
+              <block type="keys_null" ></block>
+            </value>
+            <value name="desc">
+              <block type="keys_null" ></block>
+            </value>
+            <value name="linkText">
+              <block type="keys_null" ></block>
+            </value>
+            <value name="linkAddress">
+              <block type="keys_null" ></block>
+            </value>
+            <value name="hint">
+              <block type="keys_null" ></block>
+            </value>
+            <value name="indexCode">
+              <block type="keys_array" >
+                <mutation items="3"></mutation>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <value name="title">
+          <block type="keys_string_concat" >
+            <field name="split"></field>
+            <value name="strings">
+              <block type="keys_array" >
+                <mutation items="4"></mutation>
+                <value name="ADD0">
+                  <block type="keys_string" >
+                    <field name="value">【生意参谋平台】竞争情报-竞争商品-搜索竞争-</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="statdate_format" >
+                    <field name="statDate">startDate</field>
+                    <field name="format">yyyy-MM-dd</field>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="keys_string" >
+                    <field name="value">_</field>
+                  </block>
+                </value>
+                <value name="ADD3">
+                  <block type="statdate_format" >
+                    <field name="statDate">endDate</field>
+                    <field name="format">yyyy-MM-dd</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </category>
+    <category name="集合处理" colour="90">
+      <block type="collections_sum_allindex_value"></block>
+      <block type="collections_order_paging"></block>
+      <block type="collections_size"></block>
+      <block type="collections_keys"></block>
+      <block type="collections_values"></block>
+      <block type="collections_get_one"></block>
+      <block type="collections_build_parent_child"></block>
+      <block type="collections_flat_parent_child"></block>
+      <block type="collections_merge">
+        <value name="params">
+          <block type="keys_array"></block>
+        </value>
+      </block>
+      <block type="collections_list">
+        <value name="params">
+          <block type="keys_array"></block>
+        </value>
+      </block>
+      <block type="collections_replace_map_key">
+        <value name="ADD0">
+          <block type="keys_string"></block>
+        </value>
+      </block>
+    </category>
+    <category name="工具集" colour="255">
+      <block type="util_call">
+        <value name="params">
+          <block type="keys_array"></block>
+        </value>
+      </block>
+      <block type="util_debug">
+        <value name="params">
+          <block type="datasource_condition_map"></block>
+        </value>
+      </block>
+      <block type="util_log">
+        <value name="params">
+          <block type="datasource_condition_map"></block>
+        </value>
+      </block>
+      <block type="util_reference"></block>
+      <block type="util_function_call">
+        <value name="params">
+          <block type="keys_array"></block>
+        </value>
+      </block>
+      <block type="util_cache">
+        <value name="keys">
+          <block type="keys_array"></block>
+        </value>
+        <value name="values">
+          <block type="keys_reference"></block>
+        </value>
+      </block>
+      <block type="util_parallel_struct">
+        <statement name="parallelStatement">
+          <block type="util_parallel_statement" ></block>
+        </statement>
+      </block>
+    </category>
+    <category name="脚本" colour="123">
+      <block type="scripting_for_each"></block>
+      <block type="scripting_reduce"></block>
+      <block type="scripting_map"></block>
+    </category>
+  </xml>

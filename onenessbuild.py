@@ -173,13 +173,13 @@ class Gen_compressed(threading.Thread):
     self.search_paths = search_paths
 
   def run(self):
-    self.gen_core()
+    # self.gen_core()
     self.gen_blocks()
-    self.gen_generator("javascript")
-    self.gen_generator("python")
-    self.gen_generator("php")
-    self.gen_generator("dart")
-    self.gen_generator("lua")
+    # self.gen_generator("javascript")
+    # self.gen_generator("python")
+    # self.gen_generator("php")
+    # self.gen_generator("dart")
+    # self.gen_generator("lua")
 
   def gen_core(self):
     target_filename = "blockly_compressed.js"
@@ -463,8 +463,8 @@ developers.google.com/blockly/guides/modify/web/closure""")
   # Run both tasks in parallel threads.
   # Uncompressed is limited by processor speed.
   # Compressed is limited by network and server speed.
-  Gen_uncompressed(search_paths).start()
+  # Gen_uncompressed(search_paths).start()
   Gen_compressed(search_paths).start()
 
   # This is run locally in a separate thread.
-  Gen_langfiles().start()
+  # Gen_langfiles().start()

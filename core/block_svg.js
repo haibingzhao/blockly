@@ -598,6 +598,12 @@ Blockly.BlockSvg.prototype.onMouseDown_ = function(e) {
 };
 
 /**
+ * record last click time, used for distinguish double click.
+ * @type {Blockly.Boolean}
+ */
+Blockly.BlockSvg.prototype.lastClickTime = null;
+
+/**
  * Handle a mouse-up anywhere in the SVG pane.  Is only registered when a
  * block is clicked.  We can't use mouseUp on the block since a fast-moving
  * cursor can briefly escape the block before it catches up.
@@ -605,6 +611,20 @@ Blockly.BlockSvg.prototype.onMouseDown_ = function(e) {
  * @private
  */
 Blockly.BlockSvg.prototype.onMouseUp_ = function(e) {
+  var currentTime = new Date().getTime();
+  if (Blockly.BlockSvg.prototype.lastClickTime && this.workspace.options.collapse) {
+      var timeDifference= currentTime - Blockly.BlockSvg.prototype.lastClickTime;
+      // if two click occured in 100ms
+      if(timeDifference < 250){
+        // Option to collapse/expand block.
+        if (this.collapsed_) {
+            this.setCollapsed(false);
+        } else {
+            this.setCollapsed(true);
+        }
+      }
+  }
+  Blockly.BlockSvg.prototype.lastClickTime = currentTime;
   Blockly.Touch.clearTouchIdentifier();
   if (Blockly.dragMode_ != Blockly.DRAG_FREE &&
       !Blockly.WidgetDiv.isVisible()) {
