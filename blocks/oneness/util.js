@@ -142,10 +142,17 @@ Blockly.Blocks['util_parallel_statement'] = {
       }
       block = block.getSurroundParent();
     } while (block);
+
     if (legal) {
       this.setWarningText(null);
+      if (!this.isInFlyout) {
+        this.setDisabled(false);
+      }
     } else {
       this.setWarningText('并行语句只能放在并行框架中');
+      if (!this.isInFlyout && !this.getInheritedDisabled()) {
+        this.setDisabled(true);
+      }
     }
   },
 
@@ -223,10 +230,17 @@ Blockly.Blocks['util_function_call'] = {
       }
       block = block.getSurroundParent();
     } while (block);
+
     if (legal) {
       this.setWarningText(null);
+      if (!this.isInFlyout) {
+        this.setDisabled(false);
+      }
     } else {
       this.setWarningText('函数调用中不能再调用其它函数');
+      if (!this.isInFlyout && !this.getInheritedDisabled()) {
+        this.setDisabled(true);
+      }
     }
   },
 

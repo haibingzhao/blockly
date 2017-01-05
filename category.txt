@@ -24,6 +24,10 @@
         </value>
       </block>
     </category>
+    <category name="循环处理" colour="120">
+      <block type="loop_foreach">
+      </block>
+    </category>
     <category name="参数处理" colour="345">
       <category name="基本参数" colour="345">
         <block type="param_input">

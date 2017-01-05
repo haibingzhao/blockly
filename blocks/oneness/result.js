@@ -142,8 +142,14 @@ Blockly.Blocks['result_sheet_content'] = {
     var block = this.getSurroundParent();
     if (block && this.EXCEL_TYPES.indexOf(block.type) != -1) {
       this.setWarningText(null);
+      if (!this.isInFlyout) {
+        this.setDisabled(false);
+      }
     } else {
       this.setWarningText('Excel Sheet只能放在Excel下载中');
+      if (!this.isInFlyout && !this.getInheritedDisabled()) {
+        this.setDisabled(true);
+      }
     }
   },
 

@@ -245,7 +245,7 @@ Blockly.Blocks['keys_create_variable'] = {
 Blockly.Blocks['keys_assign_variable'] = {
   init: function() {
     this.appendValueInput("value")
-        .appendField("赋值")
+        .appendField("创建或赋值")
         .appendField(new Blockly.FieldVariable("item"), "key")
         .appendField("=");
     this.setPreviousStatement(true, null);
