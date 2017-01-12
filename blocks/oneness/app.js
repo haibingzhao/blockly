@@ -74,10 +74,10 @@ Blockly.Blocks['rpc_definition'] = {
     if(!isRt){
         if(needUpdateTime) {
             if(!this.getField('appId'))
-                statDateInput.appendField(new Blockly.FieldTextInput("app id"), "appId");
+                statDateInput.appendField(new Blockly.FieldVariable("statDate"), "statDate");
         }else{
-            if(this.getField('appId'))
-                statDateInput.removeField('appId');
+            if(this.getField('statDate'))
+                statDateInput.removeField('statDate');
         }
     }
   },
