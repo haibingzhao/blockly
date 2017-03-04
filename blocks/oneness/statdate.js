@@ -145,15 +145,15 @@ Blockly.Blocks['statdate_trend_pre_period'] = {
     if(check && !input){
       this.appendDummyInput("trendSize")
         .appendField("日")
-        .appendField(new Blockly.FieldTextInput("30"), "day")
+        .appendField(new Blockly.FieldNumber(30, 0, 1000), "day")
         .appendField("，周")
-        .appendField(new Blockly.FieldTextInput("24"), "week")
+        .appendField(new Blockly.FieldNumber(24, 0, 1000), "week")
         .appendField("，月")
-        .appendField(new Blockly.FieldTextInput("13"), "month")
+        .appendField(new Blockly.FieldNumber(13, 0, 1000), "month")
         .appendField("，季度")
-        .appendField(new Blockly.FieldTextInput("8"), "quarter")
+        .appendField(new Blockly.FieldNumber(8, 0, 1000), "quarter")
         .appendField("，年")
-        .appendField(new Blockly.FieldTextInput("3"), "year");
+        .appendField(new Blockly.FieldNumber(3, 0, 1000), "year");
       }else if(!check && input){
         this.removeInput("trendSize");
       }
@@ -232,15 +232,15 @@ Blockly.Blocks['statdates_from_period'] = {
     if(check && !input){
       this.appendDummyInput("trendSize")
         .appendField("日")
-        .appendField(new Blockly.FieldTextInput("30"), "day")
+        .appendField(new Blockly.FieldNumber(30, 0, 1000), "day")
         .appendField("，周")
-        .appendField(new Blockly.FieldTextInput("24"), "week")
+        .appendField(new Blockly.FieldNumber(24, 0, 1000), "week")
         .appendField("，月")
-        .appendField(new Blockly.FieldTextInput("13"), "month")
+        .appendField(new Blockly.FieldNumber(13, 0, 1000), "month")
         .appendField("，季度")
-        .appendField(new Blockly.FieldTextInput("8"), "quarter")
+        .appendField(new Blockly.FieldNumber(8, 0, 1000), "quarter")
         .appendField("，年")
-        .appendField(new Blockly.FieldTextInput("3"), "year");
+        .appendField(new Blockly.FieldNumber(3, 0, 1000), "year");
       }else if(!check && input){
         this.removeInput("trendSize");
       }
@@ -278,15 +278,15 @@ Blockly.Blocks['statdate_start_of_period_list'] = {
     if(check && !input){
       this.appendDummyInput("trendSize")
         .appendField("日")
-        .appendField(new Blockly.FieldTextInput("30"), "day")
+        .appendField(new Blockly.FieldNumber(30, 0, 1000), "day")
         .appendField("，周")
-        .appendField(new Blockly.FieldTextInput("24"), "week")
+        .appendField(new Blockly.FieldNumber(24, 0, 1000), "week")
         .appendField("，月")
-        .appendField(new Blockly.FieldTextInput("13"), "month")
+        .appendField(new Blockly.FieldNumber(13, 0, 1000), "month")
         .appendField("，季度")
-        .appendField(new Blockly.FieldTextInput("8"), "quarter")
+        .appendField(new Blockly.FieldNumber(8, 0, 1000), "quarter")
         .appendField("，年")
-        .appendField(new Blockly.FieldTextInput("3"), "year");
+        .appendField(new Blockly.FieldNumber(3, 0, 1000), "year");
       }else if(!check && input){
         this.removeInput("trendSize");
       }
@@ -459,5 +459,30 @@ Blockly.Blocks['statdate_format'] = {
     this.setColour(STATDATE_HUE);
     this.setTooltip('格式化时间变量');
     this.setHelpUrl('http://gitlab-sc.alibaba-inc.com/alidp/oneness/wikis/statdate-format');
+  }
+};
+
+
+Blockly.Blocks['statdates_size_from_period'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("获取时间周期")
+        .appendField(new Blockly.FieldVariable("datePeriod"), "datePeriod")
+        .appendField("对应的天数定义");
+    this.appendDummyInput("trendSize")
+        .appendField("日")
+        .appendField(new Blockly.FieldNumber(30, 0, 1000), "day")
+        .appendField("，周")
+        .appendField(new Blockly.FieldNumber(24, 0, 1000), "week")
+        .appendField("，月")
+        .appendField(new Blockly.FieldNumber(13, 0, 1000), "month")
+        .appendField("，季度")
+        .appendField(new Blockly.FieldNumber(8, 0, 1000), "quarter")
+        .appendField("，年")
+        .appendField(new Blockly.FieldNumber(3, 0, 1000), "year");
+    this.setOutput(true, "DaySize");
+    this.setColour(STATDATE_HUE);
+    this.setTooltip('从时间周期中获取对应天数定义');
+    this.setHelpUrl('http://gitlab-sc.alibaba-inc.com/alidp/oneness/wikis/statdates-size-from-period');
   }
 };

@@ -451,3 +451,161 @@ Blockly.Blocks['logic_if_then_else'] = {
     this.setInputsInline(true);
   }
 };
+
+
+Blockly.Blocks['logic_try_catch'] = {
+  init: function() {
+    this.appendStatementInput("try")
+        .setCheck(null)
+        .appendField("try");
+    this.appendStatementInput("catch")
+        .setCheck(null)
+        .appendField("catch");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setMutator(new Blockly.Mutator(['logic_finally']));
+    this.finallyCount_ = 0;
+    this.setColour(120);
+    this.setTooltip('');
+    this.setHelpUrl('http://gitlab-sc.alibaba-inc.com/alidp/oneness/wikis/logic-try-catch');
+  },
+  /**
+   * Create XML to represent the number of else-if and else inputs.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    if (!this.finallyCount_) {
+      return null;
+    }
+    var container = document.createElement('mutation');
+    if (this.finallyCount_) {
+      container.setAttribute('finally', 1);
+    }
+    return container;
+  },
+  /**
+   * Parse XML to restore the else-if and else inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.finallyCount_ = parseInt(xmlElement.getAttribute('finally'), 10) || 0;
+    this.updateShape_();
+  },
+  /**
+   * Populate the mutator's dialog with this block's components.
+   * @param {!Blockly.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Block} Root block in mutator.
+   * @this Blockly.Block
+   */
+  decompose: function(workspace) {
+    var containerBlock = workspace.newBlock('logic_try');
+    containerBlock.initSvg();
+    var connection = containerBlock.nextConnection;
+    if (this.finallyCount_) {
+      var finallyBlock = workspace.newBlock('logic_finally');
+      finallyBlock.initSvg();
+      connection.connect(finallyBlock.previousConnection);
+    }
+    return containerBlock;
+  },
+  /**
+   * Reconfigure this block based on the mutator dialog's components.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  compose: function(containerBlock) {
+    var clauseBlock = containerBlock.nextConnection.targetBlock();
+    // Count number of inputs.
+    this.finallyCount_ = 0;
+    var valueConnections = [null];
+    var statementConnections = [null];
+    var finallyStatementConnection = null;
+    while (clauseBlock) {
+      switch (clauseBlock.type) {
+        case 'logic_finally':
+          this.finallyCount_++;
+          finallyStatementConnection = clauseBlock.statementConnection_;
+          break;
+        default:
+          throw 'Unknown block type.';
+      }
+      clauseBlock = clauseBlock.nextConnection &&
+          clauseBlock.nextConnection.targetBlock();
+    }
+    this.updateShape_();
+    // Reconnect any child blocks.
+    Blockly.Mutator.reconnect(finallyStatementConnection, this, 'FINALLY');
+  },
+  /**
+   * Store pointers to any connected child blocks.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  saveConnections: function(containerBlock) {
+    var clauseBlock = containerBlock.nextConnection.targetBlock();
+    var i = 1;
+    while (clauseBlock) {
+      switch (clauseBlock.type) {
+
+        case 'logic_finally':
+          var inputDo = this.getInput('FINALLY');
+          clauseBlock.statementConnection_ =
+              inputDo && inputDo.connection.targetConnection;
+          break;
+        default:
+          throw 'Unknown block type.';
+      }
+      clauseBlock = clauseBlock.nextConnection &&
+          clauseBlock.nextConnection.targetBlock();
+    }
+  },
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: function() {
+    // Delete everything.
+    if (this.getInput('FINALLY')) {
+      this.removeInput('FINALLY');
+    }
+    // Rebuild block.
+    if (this.finallyCount_) {
+      this.appendStatementInput('FINALLY')
+          .appendField('finally');
+    }
+  }
+};
+
+
+Blockly.Blocks['logic_finally'] = {
+  /**
+   * Mutator block for else condition.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(Blockly.Blocks.logics.HUE);
+    this.appendDummyInput()
+        .appendField('finally');
+    this.setPreviousStatement(true);
+    this.setTooltip('finally an exception');
+    this.contextMenu = false;
+  }
+};
+
+Blockly.Blocks['logic_try'] = {
+  /**
+   * Mutator block for try container.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(Blockly.Blocks.logics.HUE);
+    this.appendDummyInput()
+        .appendField('try');
+    this.setNextStatement(true);
+    this.setTooltip('try{...}catch{...}finally{...}');
+    this.contextMenu = false;
+  }
+};

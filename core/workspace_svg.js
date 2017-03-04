@@ -603,13 +603,30 @@ Blockly.WorkspaceSvg.prototype.paste = function(xmlBlock) {
       this.remainingCapacity()) {
     return;
   }
+  var blockX = null;
+  var blockY = null;
+  var allBlocks = this.getAllBlocks();
+  for (var i = 0, otherBlock; otherBlock = allBlocks[i]; i++) {
+    //if there has one selected block, Move the duplicate to this block position.
+    if(Blockly.selected == otherBlock){
+      var otherXY = otherBlock.getRelativeToSurfaceXY();
+      if (this.RTL) {
+        blockX = otherXY.x -  Blockly.SNAP_RADIUS;
+      } else {
+        blockX = otherXY.x  + Blockly.SNAP_RADIUS;
+      }
+      blockY = otherXY.y + Blockly.SNAP_RADIUS * 2;
+      break;
+    }
+  }
   Blockly.terminateDrag_();  // Dragging while pasting?  No.
   Blockly.Events.disable();
   try {
     var block = Blockly.Xml.domToBlock(xmlBlock, this);
     // Move the duplicate to original position.
-    var blockX = parseInt(xmlBlock.getAttribute('x'), 10);
-    var blockY = parseInt(xmlBlock.getAttribute('y'), 10);
+    blockX = blockX || parseInt(xmlBlock.getAttribute('x'), 10) ;
+    blockY = blockY || parseInt(xmlBlock.getAttribute('y'), 10);
+
     if (!isNaN(blockX) && !isNaN(blockY)) {
       if (this.RTL) {
         blockX = -blockX;
@@ -618,7 +635,6 @@ Blockly.WorkspaceSvg.prototype.paste = function(xmlBlock) {
       // distance with neighbouring blocks.
       do {
         var collide = false;
-        var allBlocks = this.getAllBlocks();
         for (var i = 0, otherBlock; otherBlock = allBlocks[i]; i++) {
           var otherXY = otherBlock.getRelativeToSurfaceXY();
           if (Math.abs(blockX - otherXY.x) <= 1 &&

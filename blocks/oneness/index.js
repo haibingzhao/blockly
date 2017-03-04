@@ -158,7 +158,7 @@ Blockly.Blocks['index_fill_accumulate'] = {
 Blockly.Blocks['index_cput'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("指标计算");
+        .appendField("衍生指标计算");
     this.appendDummyInput()
         .appendField("查询结果列表")
         .appendField(new Blockly.FieldVariable("queryResult"), "queryResult");
@@ -459,14 +459,112 @@ Blockly.Blocks['index_cput_crc_and_cqc'] = {
     this.appendDummyInput()
         .appendField("计算范围")
         .appendField(new Blockly.FieldDropdown([["计算较上周期变化率", "period"],["计算环比", "cycle"], ["计算同比", "sync"], ["计算环比和同比", "cycle_sync"]]), "method");
+    var isMultiLine = new Blockly.FieldCheckbox("FALSE", function(option) {
+      this.sourceBlock_.updateShape_(option);
+    });
+    this.appendDummyInput()
+        .appendField("计算后结果集是否是多条数据")
+        .appendField(isMultiLine, "isMultiLine");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, "SelfRatio");
     this.setColour(INDEXS_HUE);
     this.setTooltip('计算指标同比或者环比');
     this.setHelpUrl('http://gitlab-sc.alibaba-inc.com/alidp/oneness/wikis/index-cput-crc-and-cqc');
+  },
+
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var isMultiLineInput = (this.getFieldValue('isMultiLine') == 'TRUE');
+    container.setAttribute('is_single_line_input', !isMultiLineInput);
+    return container;
+  },
+
+  domToMutation: function(xmlElement) {
+    var isMultiLineInput = (xmlElement.getAttribute('is_single_line_input') != 'true');
+    this.updateShape_(isMultiLineInput);
+  },
+
+  updateShape_: function(isMultiLineInput) {
+    // Add or remove a Value Input.
+    var inputExists = this.getInput('indexAlias');
+    if (isMultiLineInput) {
+      if (!inputExists) {
+        this.appendDummyInput("indexAlias")
+            .appendField("唯一确定一条记录的指标别名")
+            .appendField(new Blockly.FieldTextInput("input index alias"), "indexAlias");
+      }
+    } else if (inputExists) {
+      this.removeInput("indexAlias",true);
+    }
   }
 };
 
+/**
+ * 计算指标变化率
+ */
+Blockly.Blocks['index_cput_rate_change'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("计算指标变化率（同环比），结果赋予变量")
+        .appendField(new Blockly.FieldVariable("result"), "result");
+    this.appendDummyInput()
+        .appendField("查询结果集")
+        .appendField(new Blockly.FieldVariable("queryResult"), "queryResult");
+    this.appendDummyInput()
+        .appendField("指标集合")
+        .appendField(new Blockly.FieldVariable("indexs"), "indexs");
+    this.appendDummyInput()
+        .appendField("时间列表")
+        .appendField(new Blockly.FieldVariable("dateList"), "dateList");
+    this.appendDummyInput()
+        .appendField("自定义变化率名称")
+        .appendField(new Blockly.FieldTextInput("rateChange"), "rateChangeName");
+    var isMultiLine = new Blockly.FieldCheckbox("FALSE", function(option) {
+      this.sourceBlock_.updateShape_(option);
+    });
+    this.appendDummyInput()
+        .appendField("计算后结果集是否是多条数据")
+        .appendField(isMultiLine, "isMultiLine");
+    this.appendValueInput('stepSize')
+        .appendField("变化率步长")
+        .setCheck(['Number','DaySize']);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, "SelfRatio");
+    this.setColour(INDEXS_HUE);
+    this.setTooltip('计算指标变化率（同比或者环比）');
+    this.setHelpUrl('http://gitlab-sc.alibaba-inc.com/alidp/oneness/wikis/index-cput-rate-change');
+  },
+
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    var isMultiLineInput = (this.getFieldValue('isMultiLine') == 'TRUE');
+    container.setAttribute('is_single_line_input', !isMultiLineInput);
+    return container;
+  },
+
+  domToMutation: function(xmlElement) {
+    var isMultiLineInput = (xmlElement.getAttribute('is_single_line_input') != 'true');
+    this.updateShape_(isMultiLineInput);
+  },
+
+  updateShape_: function(isMultiLineInput) {
+    // Add or remove a Value Input.
+    var inputExists = this.getInput('indexAlias');
+    if (isMultiLineInput) {
+      this.removeInput("stepSize",true);
+      if (!inputExists) {
+        this.appendDummyInput("indexAlias")
+            .appendField("唯一确定一条记录的指标别名")
+            .appendField(new Blockly.FieldTextInput("input index alias"), "indexAlias");
+      }
+    } else if (inputExists) {
+      this.removeInput("indexAlias",true);
+      this.appendValueInput('stepSize')
+        .appendField("变化率步长")
+        .setCheck(['Number','DaySize']);
+    }
+  }
+};
 
 /**
  * 计算指标占比(占比的分母是查询列表对应列的总和，计算每一列占总和的占比)
@@ -545,7 +643,7 @@ Blockly.Blocks['index_col_get_by_ref'] = {
         .appendField("查询结果集")
         .appendField(new Blockly.FieldVariable("queryResult"), "queryResult");
     this.appendValueInput("indexAlias")
-        .setCheck(['Reference'])
+        .setCheck(['Reference','String'])
         .appendField("指标别名")
     this.setOutput(true, null);
     this.setColour(INDEXS_HUE);

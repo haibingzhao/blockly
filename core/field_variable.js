@@ -50,10 +50,16 @@ Blockly.FieldVariable = function(varname, opt_validator) {
 goog.inherits(Blockly.FieldVariable, Blockly.FieldDropdown);
 
 /**
- * The menu item index for the rename variable option.
+ * The menu item index for the rename all variable option.
  * @type {number}
  */
 Blockly.FieldVariable.prototype.renameVarItemIndex_ = -1;
+
+/**
+ * The menu item index for the rename current variable option.
+ * @type {number}
+ */
+Blockly.FieldVariable.prototype.renameCurrentVarItemIndex_ = -1;
 
 /**
  * The menu item index for the delete variable option.
@@ -142,6 +148,8 @@ Blockly.FieldVariable.dropdownCreate = function() {
 
   this.renameVarItemIndex_ = variableList.length;
   variableList.push(Blockly.Msg.RENAME_VARIABLE);
+  this.renameCurrentVarItemIndex_ = variableList.length;
+  variableList.push(Blockly.Msg.RENAME_CURRENT_VARIABLE);
 
   this.deleteVarItemIndex_ = variableList.length;
   variableList.push(Blockly.Msg.DELETE_VARIABLE.replace('%1', name));
@@ -176,6 +184,31 @@ Blockly.FieldVariable.prototype.onItemSelected = function(menu, menuItem) {
           function(newName) {
             if (newName) {
               workspace.renameVariable(oldName, newName);
+            }
+          });
+      return;
+    } else if(this.renameCurrentVarItemIndex_ >= 0 &&
+        menu.getChildAt(this.renameCurrentVarItemIndex_) === menuItem) {
+      // Rename variable.
+      var oldName = this.getText();
+      Blockly.hideChaff();
+      var currentBlock = this.sourceBlock_;
+      var variableList = workspace.variableList;
+
+      Blockly.Variables.promptName(
+          Blockly.Msg.RENAME_CURRENT_VARIABLE_TITLE.replace('%1', oldName), oldName,
+          function(newName) {
+            if (newName) {
+              currentBlock.renameVar(oldName, newName);
+              var uses = workspace.getVariableUses(oldName);
+              var oldNameIndex = workspace.variableIndexOf(oldName);
+              var newNameIndex = workspace.variableIndexOf(newName);
+              // oldname only one block ref
+              if(uses.length < 1 && oldNameIndex !== -1){
+                variableList[oldNameIndex] = newName;
+              }else if(uses.length > 0 && newNameIndex === -1){
+                variableList.push(newName);
+              }
             }
           });
       return;

@@ -564,6 +564,7 @@ Blockly.Blocks['param_statdate'] = {
         .appendField("，周")
         .appendField(new Blockly.FieldTextInput("24"), "week")
         .appendField("，月")
+        .appendField(new Blockly.FieldTextInput("13"), "month")
         .appendField("连续日")
         .appendField(new Blockly.FieldTextInput("30"), "rangeDay")
         .appendField("，连续周")

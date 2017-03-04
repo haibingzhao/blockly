@@ -568,7 +568,12 @@ Blockly.Connection.prototype.checkType_ = function(otherConnection) {
     if(goog.isFunction(check)){
       check = check();
     }
-    if (otherConnection.check_.indexOf(check) != -1) {
+    // if otherConnection's check is function
+    var otherCheck = otherConnection.check_;
+    if(otherCheck[0] && goog.isFunction(otherCheck[0])){
+      otherCheck = [otherCheck[0]()];
+    }
+    if (otherCheck.indexOf(check) != -1) {
       return true;
     }
   }

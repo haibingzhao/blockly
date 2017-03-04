@@ -162,7 +162,7 @@ Blockly.Blocks['rpc_function'] = {
         Blockly.Procedures.rename);
     nameField.setSpellcheck(false);
     this.appendDummyInput()
-        .appendField('方法名称')
+        .appendField('自定义函数名称')
         .appendField(nameField, 'NAME')
         .appendField('', 'PARAMS');
     this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));

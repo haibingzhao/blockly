@@ -20,6 +20,7 @@
 <script src="collections.js"></script>
 <script src="util.js"></script>
 <script src="scripting.js"></script>
+<script src="rmi.js"></script>
 
 <script>
 
@@ -177,6 +178,7 @@ h1 {
           <block type="logic_compare"></block>
         </value>
       </block>
+      <block type="logic_try_catch"></block>
     </category>
     <category name="循环处理" colour="130">
       <block type="loop_foreach">
@@ -219,6 +221,7 @@ h1 {
         <block type="statdates_from_period"></block>
         <block type="statdate_start_of_period_list"></block>
         <block type="statdates_sync_cycle_from_period"></block>
+        <block type="statdates_size_from_period"></block>
       </category>
       <category name="时间函数" colour="285">
         <block type="statdate_start_of_day"></block>
@@ -350,8 +353,14 @@ h1 {
         <block type="keys_null"></block>
         <block type="keys_current_date"></block>
         <block type="keys_array"></block>
+        <block type="keys_map"></block>
         <block type="keys_types"></block>
         <block type="keys_array_2_list"></block>
+        <block type="keys_config_get">
+          <value name="key">
+            <block type="keys_string" ><field name="value">access.log.open</field></block>
+          </value>
+        </block>
       </category>
       <category name="算术运算" colour="180">
         <block type="keys_arithmetic"></block>
@@ -433,6 +442,13 @@ h1 {
         <block type="index_cput_self_ratio"></block>
         <block type="index_cput_ratio"></block>
         <block type="index_cput_crc_and_cqc"></block>
+        <block type="index_cput_rate_change">
+          <value name="stepSize">
+            <block type="keys_integer" >
+              <field name="value">1</field>
+            </block>
+          </value>
+        </block>
         <block type="index_fill"></block>
         <block type="index_fill_accumulate">
           <value name="notAccumulates">
@@ -558,6 +574,7 @@ h1 {
       <block type="collections_get_one"></block>
       <block type="collections_build_parent_child"></block>
       <block type="collections_flat_parent_child"></block>
+      <block type="collections_add"></block>
       <block type="collections_merge">
         <value name="params">
           <block type="keys_array"></block>
@@ -614,6 +631,56 @@ h1 {
       <block type="scripting_for_each"></block>
       <block type="scripting_reduce"></block>
       <block type="scripting_map"></block>
+      <block type="scripting_engine"></block>
+    </category>
+    <category name="RMI(HSF)" colour="200">
+      <block type="rmi_hsf_generic_call">
+        <value name="version">
+          <block type="keys_config_get" >
+            <field name="types">String</field>
+            <value name="key">
+              <block type="keys_string" >
+                <field name="value">uic.read.version</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="group">
+          <block type="keys_string" >
+            <field name="value">HSF</field>
+          </block>
+        </value>
+        <value name="argsType">
+          <block type="keys_array" >
+            <mutation items="2"></mutation>
+            <value name="ADD0">
+              <block type="keys_string" >
+                <field name="value">java.lang.String</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="keys_string" >
+                <field name="value">java.lang.String</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="argsVal">
+          <block type="keys_array" >
+            <mutation items="2"></mutation>
+            <value name="ADD0">
+              <block type="keys_string" >
+                <field name="value">zhaoxingming010</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="keys_string" >
+                <field name="value">1688</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
     </category>
   </xml>
 

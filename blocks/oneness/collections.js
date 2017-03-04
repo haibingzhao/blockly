@@ -385,3 +385,24 @@ Blockly.Blocks['collections_replace_map_key'] = {
     }
   }
 };
+
+/***
+ * 列表添加元素
+ */
+Blockly.Blocks['collections_add'] = {
+  init: function() {
+    this.appendValueInput('element')
+        .appendField("在")
+        .appendField(new Blockly.FieldVariable("queryResult"), "queryResult")
+        .appendField("列表(数组)的")
+        .appendField(new Blockly.FieldDropdown([
+          ["尾部", "tail"],
+          ["头部", "head"]]), "direction")
+        .appendField("添加元素");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(COLLECTIONS_HUE);
+    this.setTooltip('添加元素到集合中');
+    this.setHelpUrl('http://gitlab-sc.alibaba-inc.com/alidp/oneness/wikis/collections-add');
+  }
+}
