@@ -43,6 +43,9 @@ Blockly.Blocks['rpc_definition'] = {
         .appendField(new Blockly.FieldCheckbox("FALSE",this.updateNeedInterval_.bind(this)), "needInterval");
     this.appendStatementInput("business_flows")
         .setCheck(null);
+    this.appendDummyInput()
+        .appendField("服务类型")
+        .appendField(new Blockly.FieldDropdown([["HTTP服务", "http"], ["HSF服务", "hsf"], ["HTTP和HSF服务", "http-hsf"]]), "rpcType");
     this.setColour(APP_HUE);
     this.setTooltip('');
     this.setHelpUrl('http://gitlab-sc.alibaba-inc.com/alidp/oneness/wikis/rpc-definition');
